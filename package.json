@@ -1,0 +1,9 @@
+{
+  "name": "waline-netlify",
+  "version": "1.0.0",
+  "description": "Waline comment backend on Netlify",
+  "dependencies": {
+    "@waline/vercel": "^1.31.9",
+    "serverless-http": "^4.0.0"
+  }
+}
