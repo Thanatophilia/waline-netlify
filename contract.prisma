@@ -1,0 +1,62 @@
+// use prisma-8
+model Comment {
+  id         Int       @id @default(autoincrement())
+  userId     Int?      @map("user_id")
+  comment    String?
+  insertedat DateTime?
+  ip         Varchar(100)?   @default("")
+  link       Varchar(255)?   @default("")
+  mail       Varchar(255)?   @default("")
+  nick       Varchar(255)?   @default("")
+  pid        Varchar(255)?   @default("")
+  rid        Varchar(255)?   @default("")
+  sticky     Boolean?  @default(false)
+  status     Varchar(50)?   @default("")
+  like       Int?      @default(0)
+  ua         Varchar(255)?   @default("")
+  url        Varchar(255)?   @default("")
+  createdat  DateTime?
+  updatedat  DateTime?
+
+  @@index([url])
+  @@map("wl_comment")
+}
+
+model Counter {
+  id        Int       @id @default(autoincrement())
+  time      Int?
+  reaction0 Int?
+  reaction1 Int?
+  reaction2 Int?
+  reaction3 Int?
+  reaction4 Int?
+  reaction5 Int?
+  reaction6 Int?
+  reaction7 Int?
+  reaction8 Int?
+  url       Varchar(255)    
+  createdat DateTime?
+  updatedat DateTime?
+
+  @@map("wl_counter")
+}
+
+model Users {
+  id          Int       @id @default(autoincrement())
+  display_name Varchar(255)?  @default("")
+  email       Varchar(255)?   @default("")
+  password    Varchar(255)?   @default("")
+  type        Varchar(50)?   @default("")
+  label       Varchar(50)?   @default("")
+  url         Varchar(255)?   @default("")
+  avatar      Varchar(255)?   @default("")
+  github      Varchar(255)?   @default("")
+  twitter     Varchar(255)?   @default("")
+  facebook    Varchar(255)?   @default("")
+  google      Varchar(255)?   @default("")
+  two_fa      Varchar(32)? @default("") @map("2fa")
+  createdat   DateTime?
+  updatedat   DateTime?
+
+  @@map("wl_users")
+}

@@ -1,0 +1,214 @@
+[
+  {
+    "id": "schema.public",
+    "label": "Create schema \"public\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Create schema \"public\"",
+        "sql": "CREATE SCHEMA IF NOT EXISTS \"public\"",
+        "params": []
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "table.wl_comment",
+    "label": "Create table \"wl_comment\"",
+    "summary": "Creates table \"wl_comment\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "wl_comment"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"wl_comment\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"wl_comment\""
+        ],
+        "expectation": {
+          "expects": "absent",
+          "object": "table \"wl_comment\""
+        }
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"wl_comment\"",
+        "sql": "CREATE TABLE \"public\".\"wl_comment\" (\n  \"comment\" text,\n  \"createdat\" timestamptz(3),\n  \"id\" SERIAL NOT NULL,\n  \"insertedat\" timestamptz(3),\n  \"ip\" character varying(100) DEFAULT '',\n  \"like\" int4 DEFAULT 0,\n  \"link\" character varying(255) DEFAULT '',\n  \"mail\" character varying(255) DEFAULT '',\n  \"nick\" character varying(255) DEFAULT '',\n  \"pid\" character varying(255) DEFAULT '',\n  \"rid\" character varying(255) DEFAULT '',\n  \"status\" character varying(50) DEFAULT '',\n  \"sticky\" bool DEFAULT false,\n  \"ua\" character varying(255) DEFAULT '',\n  \"updatedat\" timestamptz(3),\n  \"url\" character varying(255) DEFAULT '',\n  \"user_id\" int4,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"wl_comment\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_class\" AS \"c\" WHERE (\"c\".\"oid\" = to_regclass($1) AND (\"c\".\"relkind\" = $2 OR \"c\".\"relkind\" = $3))) AS \"result\"",
+        "params": [
+          "\"public\".\"wl_comment\"",
+          "r",
+          "p"
+        ],
+        "expectation": {
+          "expects": "present",
+          "object": "table \"wl_comment\""
+        }
+      }
+    ]
+  },
+  {
+    "id": "table.wl_counter",
+    "label": "Create table \"wl_counter\"",
+    "summary": "Creates table \"wl_counter\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "wl_counter"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"wl_counter\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"wl_counter\""
+        ],
+        "expectation": {
+          "expects": "absent",
+          "object": "table \"wl_counter\""
+        }
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"wl_counter\"",
+        "sql": "CREATE TABLE \"public\".\"wl_counter\" (\n  \"createdat\" timestamptz(3),\n  \"id\" SERIAL NOT NULL,\n  \"reaction0\" int4,\n  \"reaction1\" int4,\n  \"reaction2\" int4,\n  \"reaction3\" int4,\n  \"reaction4\" int4,\n  \"reaction5\" int4,\n  \"reaction6\" int4,\n  \"reaction7\" int4,\n  \"reaction8\" int4,\n  \"time\" int4,\n  \"updatedat\" timestamptz(3),\n  \"url\" character varying(255) NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"wl_counter\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_class\" AS \"c\" WHERE (\"c\".\"oid\" = to_regclass($1) AND (\"c\".\"relkind\" = $2 OR \"c\".\"relkind\" = $3))) AS \"result\"",
+        "params": [
+          "\"public\".\"wl_counter\"",
+          "r",
+          "p"
+        ],
+        "expectation": {
+          "expects": "present",
+          "object": "table \"wl_counter\""
+        }
+      }
+    ]
+  },
+  {
+    "id": "table.wl_users",
+    "label": "Create table \"wl_users\"",
+    "summary": "Creates table \"wl_users\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "wl_users"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"wl_users\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"wl_users\""
+        ],
+        "expectation": {
+          "expects": "absent",
+          "object": "table \"wl_users\""
+        }
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"wl_users\"",
+        "sql": "CREATE TABLE \"public\".\"wl_users\" (\n  \"2fa\" character varying(32) DEFAULT '',\n  \"avatar\" character varying(255) DEFAULT '',\n  \"createdat\" timestamptz(3),\n  \"display_name\" character varying(255) DEFAULT '',\n  \"email\" character varying(255) DEFAULT '',\n  \"facebook\" character varying(255) DEFAULT '',\n  \"github\" character varying(255) DEFAULT '',\n  \"google\" character varying(255) DEFAULT '',\n  \"id\" SERIAL NOT NULL,\n  \"label\" character varying(50) DEFAULT '',\n  \"password\" character varying(255) DEFAULT '',\n  \"twitter\" character varying(255) DEFAULT '',\n  \"type\" character varying(50) DEFAULT '',\n  \"updatedat\" timestamptz(3),\n  \"url\" character varying(255) DEFAULT '',\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"wl_users\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_class\" AS \"c\" WHERE (\"c\".\"oid\" = to_regclass($1) AND (\"c\".\"relkind\" = $2 OR \"c\".\"relkind\" = $3))) AS \"result\"",
+        "params": [
+          "\"public\".\"wl_users\"",
+          "r",
+          "p"
+        ],
+        "expectation": {
+          "expects": "present",
+          "object": "table \"wl_users\""
+        }
+      }
+    ]
+  },
+  {
+    "id": "index.wl_comment.wl_comment_url_idx_f758eab5",
+    "label": "Create index \"wl_comment_url_idx_f758eab5\" on \"wl_comment\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "wl_comment_url_idx_f758eab5",
+        "table": "wl_comment"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"wl_comment_url_idx_f758eab5\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"wl_comment_url_idx_f758eab5\""
+        ],
+        "expectation": {
+          "expects": "absent",
+          "object": "index \"wl_comment_url_idx_f758eab5\""
+        }
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"wl_comment_url_idx_f758eab5\"",
+        "sql": "CREATE INDEX \"wl_comment_url_idx_f758eab5\" ON \"public\".\"wl_comment\" (\"url\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"wl_comment_url_idx_f758eab5\" exists on \"wl_comment\" with the planned definition",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_class\" AS \"c\" INNER JOIN \"pg_index\" AS \"i\" ON \"i\".\"indexrelid\" = \"c\".\"oid\" INNER JOIN \"pg_am\" AS \"m\" ON \"m\".\"oid\" = \"c\".\"relam\" WHERE (\"c\".\"oid\" = to_regclass($1) AND (\"c\".\"relkind\" = $2 OR \"c\".\"relkind\" = $3) AND \"i\".\"indrelid\" = to_regclass($4) AND NOT (\"i\".\"indisunique\") AND \"m\".\"amname\" = $5 AND (\"i\".\"indexprs\" IS NULL AND (SELECT coalesce(jsonb_agg(key_attribute.attname ORDER BY key_column.position), '[]'::jsonb) FROM unnest(\"i\".\"indkey\"::int2[]) WITH ORDINALITY AS key_column(attnum, position) JOIN pg_attribute key_attribute ON key_attribute.attrelid = \"i\".\"indrelid\" AND key_attribute.attnum = key_column.attnum) = ($6)::jsonb) AND \"i\".\"indpred\" IS NULL)) AS \"result\"",
+        "params": [
+          "\"public\".\"wl_comment_url_idx_f758eab5\"",
+          "i",
+          "I",
+          "\"public\".\"wl_comment\"",
+          "btree",
+          "[\"url\"]"
+        ]
+      }
+    ]
+  }
+]
