@@ -1,9 +1,28 @@
 {
   "name": "waline-netlify",
   "version": "1.0.0",
-  "description": "Waline comment backend on Netlify",
+  "description": "Waline comment backend",
+  "scripts": {
+    "build": "node build.mjs",
+    "start": "node server.mjs"
+  },
   "dependencies": {
+    "@prisma/composer": "0.38.0",
+    "@prisma/composer-prisma-cloud": "0.38.0",
+    "@prisma/orm-postgres": "8.0.0-rc.23",
     "@waline/vercel": "^1.31.9",
+    "effect": "4.0.5",
+    "pg": "^8.11.3",
     "serverless-http": "^4.0.0"
+  },
+  "devDependencies": {
+    "prisma": "8.0.0-rc.33"
+  },
+  "overrides": {
+    "effect": "4.0.5",
+    "@effect/vitest": "4.0.5",
+    "@effect/platform-bun": "4.0.5",
+    "@effect/platform-node": "4.0.5",
+    "@effect/platform-node-shared": "4.0.5"
   }
 }
